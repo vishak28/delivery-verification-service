@@ -49,7 +49,7 @@ def getOrderInfo():
     return response
 
 @app.route('/getorderlist', methods=['POST'])
-def getOrderInfo():
+def getOrderList():
     data = request.get_json()
     user_id = data['user_id']
     response = db.get_order_object_from_user_id('user-data', user_id)
