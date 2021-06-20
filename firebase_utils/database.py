@@ -32,7 +32,7 @@ class FirebaseUtils:
             if order_dict['paid'] == 'no':
                 total_cost += int(order_dict['cost'])
         return jsonify({
-            'order-list': order_list
+            'orderlist': order_list
         })
 
     def get_latest_order_object_from_user_id(self, collection_name, user_id):
