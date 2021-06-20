@@ -45,9 +45,15 @@ def receiveImages():
 def getOrderInfo():
     data = request.get_json()
     user_id = data['user_id']
-    response = db.get_order_object_from_user_id('user-data', user_id)
+    response = db.get_latest_order_object_from_user_id('user-data', user_id)
     return response
 
+@app.route('/getorderlist', methods=['POST'])
+def getOrderInfo():
+    data = request.get_json()
+    user_id = data['user_id']
+    response = db.get_order_object_from_user_id('user-data', user_id)
+    return response
 
 @app.route('/verify',methods=['POST'])
 def verify():
