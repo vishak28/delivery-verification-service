@@ -41,19 +41,12 @@ def receiveImages():
         'image-name': image_name
         })
 
-
-@app.route('/getAllData', methods=['GET'])
-def getAllData():
-    print('fetching all data')
-    data = db.get_all_data('milk-data')
-    return jsonify(data)
-
 @app.route('/getorderinfo', methods=['POST'])
 def getOrderInfo():
     data = request.get_json()
     user_id = data['user_id']
-    response = db.get_order_object_from_user_id('milk-data', user_id)
-    return jsonify(response)
+    response = db.get_order_object_from_user_id('user-data', user_id)
+    return response
 
 
 @app.route('/verify',methods=['POST'])
@@ -71,7 +64,7 @@ def verify():
             'time': time_data,
             'weight': weight_data,
             'volume': volume_data,
-            'image-name': image_name,
+            'image-location': file_utils.get_cloud_storage_url(image_name),
             'paid': 'no'       
         }
 

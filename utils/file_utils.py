@@ -12,3 +12,5 @@ class FileUtils:
     def delete_file(self, file_name):
         os.remove(file_name)
 
+    def get_cloud_storage_url(image_name):
+        return f'http://storage.googleapis.com/milk-packet-images/{image_name}'
