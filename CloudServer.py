@@ -26,7 +26,6 @@ def receiveImages():
             'message': 'Upload image not found'
         })
 
-    #Save file and upload to cloud storage
     image_name = file_utils.save_file(request.files['upload'])
     try:
         storage.upload_blob(image_name)
@@ -70,7 +69,6 @@ def verify():
     image_name = data['image-name']
     device_data = {
             'time': time_data,
-            'user': user_id,
             'weight': weight_data,
             'volume': volume_data,
             'image-name': image_name,
@@ -82,12 +80,10 @@ def verify():
         prediction_result = cnn.classify(image_name)
         cost_data = utils.calculate_cost(prediction_result, volume_data)
     except:
-        device_data['prediction'] = 'Error while generating prediction'
-        db.add_document('milk-data', device_data)
         return jsonify({
             'status': "unsuccessful",
             "user":user_id,
-            "Type":"Error"
+            "type":"Error"
             })
     
     #Yeet downloaded file
@@ -96,11 +92,11 @@ def verify():
     #Send response
     device_data['prediction'] = prediction_result
     device_data['cost'] = cost_data
-    db.add_document('milk-data', device_data)
+    db.add_order('user-data', user_id, device_data)
     return jsonify({
         'status': "success",
         "user":user_id,
-        "Type":prediction_result
+        "type":prediction_result
         })
 
 

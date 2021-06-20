@@ -16,9 +16,9 @@ class FirebaseUtils:
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
     
-    def add_document(self, collection_name, data_object):
-        doc_ref = self.db.collection(collection_name).document()
-        doc_ref.set(data_object)
+    def add_order(self, collection_name, user_id, order_data):
+        new_order = self.db.collection(collection_name).document(user_id).collection('order-data').document()
+        new_order.set(order_data)
     
     def get_order_object_from_user_id(self, collection_name, user_id):
         all_objects = self.db.collection(collection_name)
